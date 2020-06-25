@@ -10,8 +10,8 @@ Pretendant::Pretendant()
     nb_sujets = 1;
     sujets.assign(nb_sujets,Sujet("Dummy","","","",0,"","","",0,0,0,0,0,0,0));
 
-    location = Lieu("Capitale","Gagnez x or ou effectuez un coup d'Etat");
-    location.changeState();
+    location = new Lieu("Capitale","Gagnez x or ou effectuez un coup d'Etat");
+    location->changeState();
 
     actif = 0;
     actif_desc = "";
@@ -28,6 +28,10 @@ Pretendant::Pretendant()
     PE = 0;
 }
 
+Pretendant::~Pretendant()
+{
+    delete location;
+}
 
 void Pretendant::printinfo()
 {
@@ -38,8 +42,9 @@ void Pretendant::printinfo()
     cout<<  "Passif 2:"  <<  passif2_desc  <<  endl;
     cout<<  "Sa faction comporte les sujets suivants: "  <<endl;
     for(int i=0; i<nb_sujets;i++) cout<<  sujets[i].getnameSujet()  <<endl;
-    cout<< name << " est actuellement sur "  <<  location.getnameLieu()  <<endl;
+    cout<< name << " est actuellement sur "  <<  location->getnameLieu()  <<endl;
 }
+
 
 Sujet Pretendant::getSujet(int numero){
         if (numero<nb_sujets) return sujets[numero];

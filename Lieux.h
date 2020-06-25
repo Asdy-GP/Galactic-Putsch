@@ -9,49 +9,13 @@ private:
     int njoueurs;
 
 public:
-    Lieu(string nl, string d)
-    {
-        etat = false;
-        nlieu = nl;
-        desc = d;
-    }
 
-    string getnameLieu()
-    {
-        return nlieu;
-    }
+    Lieu(string nl, string d);
 
-    void changeState()
-    {
-        if (etat == true) etat = false;
-        else etat = true;
-    }
+    string getnameLieu();
 
+    bool getState();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    void changeState();
 
 };
-
-
-

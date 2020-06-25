@@ -9,9 +9,9 @@ class Pretendant
         string name;
 
         int nb_sujets;
-        vector<Sujet> sujets{};
+        vector<Sujet> sujets;
 
-        Lieu location=Lieu("","");
+        Lieu *location;
 
         int actif;
         string actif_desc;
@@ -29,6 +29,8 @@ class Pretendant
 
    public:
         Pretendant();//Constructeur
+
+        ~Pretendant();//Destructeur
 
         void printinfo();//affiche les infos du pretendant
 
