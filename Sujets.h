@@ -1,20 +1,19 @@
-
-using namespace std;
+#include <string>
 
 class Sujet
 {
     private:
-        string name;
+        std::string name;
 
-        string type1;
-        string type2;
-        string type3;
+        std::string type1;
+        std::string type2;
+        std::string type3;
 
         int level;
 
-        string desc_niv1;
-        string desc_niv2;
-        string desc_niv3;
+        std::string desc_niv1;
+        std::string desc_niv2;
+        std::string desc_niv3;
 
         int niv_or1;
         int niv_or2;
@@ -28,9 +27,9 @@ class Sujet
 
     public:
         //constructeur
-        Sujet(string n,string t1,string t2,string t3, int l, string d1, string d2, string d3, int no1, int no2, int no3, int nh1, int nh2, int nh3, int prio);
+        Sujet(std::string n,std::string t1,std::string t2,std::string t3, int l, std::string d1, std::string d2, std::string d3, int no1, int no2, int no3, int nh1, int nh2, int nh3, int prio);
 
-        string getnameSujet();//accesseur nom
+        std::string getnameSujet();//accesseur nom
 
-        string gettypeSujet(int i);//accesseur type
+        std::string gettypeSujet(int i);//accesseur type
 };

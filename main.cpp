@@ -3,23 +3,7 @@
 
 using namespace std;
 
-int convert(string nb)
-{
-    if (nb=="2") return 2;
-    if (nb=="3") return 3;
-    if (nb=="4") return 4;
-    if (nb=="5") return 5;
-    return 0;
-}
 
-bool verifPret(vector<Pretendant> pret, int size, string dejavu)
-{
-    for (int i=0; i<size; i++)
-    {
-        if (dejavu==pret[i].getnamePret()) return false;
-    }
-    return true;
-}
 
 int main()
 {
@@ -57,9 +41,9 @@ int main()
     {
         do
         {
-            cout << "  Joueur "  << i <<  ",  choisissez un nom valable et qui n'est pas deja selctionne parmi - Le Kahn, Prince Gorio, Kerval, Galar, Apolion, Clara Mars, Mere Syndra, M4RK, Mu, Val : ";
+            cout << "  Joueur "  << i+1 <<  ",  choisissez un nom valable et qui n'est pas deja selctionne parmi - Le Kahn, Prince Gorio, Kerval, Galar, Apolion, Clara Mars, Mere Syndra, M4RK, Mu, Val : ";
             getline(cin,name);
-            cout<<endl;
+
         }while((name != "Le Kahn" && name != "Prince Gorio" && name != "Kerval" && name != "Galar" && name != "Apolion" && name != "Clara Mars" && name != "Mere Syndra" && name != "M4RK" && name != "Mu" && name != "Val") || verifPret(gs.getVectPret(),gs.getNB_JOUEURS(),name)==false);
 
         gs.addPretendant(name);
@@ -83,6 +67,11 @@ int main()
 
     cout<<endl;
     cout<<endl;
+    cout<< "La pioche de sujets : " << endl;
+    for (int i=0; i<100;i++) cout<<gs.getnameSujetInPioche(i)<<endl;
+    cout<<endl;
+
+    for (int i = 0; i<gs.getNB_JOUEURS(); i++) gs.getPretendant(i).~Pretendant();
 
     return 0;
 }

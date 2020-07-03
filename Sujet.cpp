@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Sujets.h"
 
+using namespace std;
+
 Sujet::Sujet(string n,string t1,string t2,string t3, int l, string d1, string d2, string d3, int no1, int no2, int no3, int nh1, int nh2, int nh3, int prio)
 {
     name = n;

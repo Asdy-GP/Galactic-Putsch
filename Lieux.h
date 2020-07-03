@@ -1,18 +1,16 @@
-using namespace std;
-
 class Lieu
 {
 private:
-    string nlieu;
-    string desc;
+    std::string nlieu;
+    std::string desc;
     bool etat;//lieu en jeu ou non(0/1)
     int njoueurs;
 
 public:
 
-    Lieu(string nl, string d);
+    Lieu(std::string nl, std::string d);
 
-    string getnameLieu();
+    std::string getnameLieu();
 
     bool getState();
 

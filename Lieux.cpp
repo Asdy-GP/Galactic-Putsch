@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Lieux.h"
 
+using namespace std;
 
 Lieu::Lieu(string nl, string d)
 {

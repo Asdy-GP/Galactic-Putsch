@@ -2,10 +2,9 @@
 # include <iostream>
 # include <stdlib.h>
 # include <time.h>
-# include "Pretendants.h"
+#include "fonctions_utiles.h"
+#include "Evenements.h"
 
-
-using namespace std;
 
 class game_state
 {
@@ -13,10 +12,11 @@ class game_state
 private:
 
 	int				nb_joueurs;
-	vector<Pretendant> pretendants;
 	bool			empereur;
 	int				emp_tours;
-	vector<Lieu>	lieux;
+	std::vector<Pretendant> pretendants;
+	std::vector<Lieu>	lieux;
+	std::vector<Sujet>  pioche_sujet;
 
 public:
 
@@ -28,7 +28,7 @@ public:
 
 	bool	getEmpereur();//accesseur empereur
 
-	void	addPretendant(string nom);//rajoute un pretendant a la liste de jeu
+	void	addPretendant(std::string nom);//rajoute un pretendant a la liste de jeu
 
 	Pretendant	getPretendant(int i);//accesseur pretendant
 
@@ -36,6 +36,8 @@ public:
 
 	int getNB_JOUEURS();//accesseur nombre de joueurs
 
-    vector<Pretendant> getVectPret();//accesseur a la liste des pretendants
+    std::vector<Pretendant> getVectPret();//accesseur a la liste des pretendants
+
+    std::string getnameSujetInPioche(int i);
 
 };

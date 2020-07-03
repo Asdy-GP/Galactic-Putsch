@@ -1,75 +1,80 @@
 #include <iostream>
+#include <fstream>
 #include "game_state.h"
+
+using namespace std;
+
 
 
 game_state::game_state()
 	{
+
 		nb_joueurs = 0;
 		empereur = false;
 		emp_tours = 25;
 		string		init_lieux[23][2] = {
 			{
 				"Centre de formation de l'Elite Imperiale",
-			"Vous pouvez recruter un ‘Soldat Oseph’ pour 5 or."
+			"Vous pouvez recruter un â€˜Soldat Osephâ€™ pour 5 or."
 			},
 			{
 				"Ambassade",
-			"Tant que votre pion voyage est dans l’Ambassade, votre prétendant et ses sujets \
-			ne peuvent pas être ciblés par vos adversaires. Vous ne pouvez pas effectuer \
-			d’action principale. Lorsqu’un prétendant adverse effectue l’action ‘Voyager’ \
-			sur l'Ambassade alors que vous vous y trouvez, vous êtes dans l’obligation d’effectuer \
-			l’action ‘Voyager’ sur un autre lieu a votre prochaine phase d’action principale."
+			"Tant que votre pion voyage est dans lâ€™Ambassade, votre prÃ©tendant et ses sujets \
+			ne peuvent pas Ãªtre ciblÃ©s par vos adversaires. Vous ne pouvez pas effectuer \
+			dâ€™action principale. Lorsquâ€™un prÃ©tendant adverse effectue lâ€™action â€˜Voyagerâ€™ \
+			sur l'Ambassade alors que vous vous y trouvez, vous Ãªtes dans lâ€™obligation dâ€™effectuer \
+			lâ€™action â€˜Voyagerâ€™ sur un autre lieu a votre prochaine phase dâ€™action principale."
 			},
 			{
 				"Casino Prive Dhinaar",
-			"Mode pari : disponible uniquement lorsque l’événement gsop est activé.  \
-			Décidez d’une mise d’or de votre choix, puis tirez deux cartes au hasard dans \
-			le deck de sujets principal. Le croupier en tire également deux. \
-			Comparez vos combinaisons de points de priorité (une priorité de 10 bat une priorité de 5 ; une paire de 2 bat un 10 et un 5 dépareillés). \
-			Si vous êtes vainqueur, remportez le double de votre mise. Sinon, vous perdez le montant misé.\
-			 En cas d’égalité, vous ne perdez ni ne gagnez d’or.   \
-			 Mode normal :  Lancez un dé 6. Entre 1 et 3, perdez le résultat du dé en or, \
-			 entre 4 et 6, gagnez le à la place."
+			"Mode pari : disponible uniquement lorsque lâ€™Ã©vÃ©nement gsop est activÃ©.  \
+			DÃ©cidez dâ€™une mise dâ€™or de votre choix, puis tirez deux cartes au hasard dans \
+			le deck de sujets principal. Le croupier en tire Ã©galement deux. \
+			Comparez vos combinaisons de points de prioritÃ© (une prioritÃ© de 10 bat une prioritÃ© de 5 ; une paire de 2 bat un 10 et un 5 dÃ©pareillÃ©s). \
+			Si vous Ãªtes vainqueur, remportez le double de votre mise. Sinon, vous perdez le montant misÃ©.\
+			 En cas dâ€™Ã©galitÃ©, vous ne perdez ni ne gagnez dâ€™or.   \
+			 Mode normal :  Lancez un dÃ© 6. Entre 1 et 3, perdez le rÃ©sultat du dÃ© en or, \
+			 entre 4 et 6, gagnez le Ã  la place."
 			},
 			{
 				"Le Grand Tribunal Galactique Tres Tres Juste",
 			"Vous pouvez si vous le souhaitez payer 10 or. \
-			Si vous faites ainsi, le prétendant de votre choix doit effectuer une action ‘Voyager’ \
-			sur le Grand Tribunal à la prochaine phase d’action principale.  \
-			Si ce dernier n’effectue pas cette action, il perd alors 20 honneur.  "
+			Si vous faites ainsi, le prÃ©tendant de votre choix doit effectuer une action â€˜Voyagerâ€™ \
+			sur le Grand Tribunal Ã  la prochaine phase dâ€™action principale.  \
+			Si ce dernier nâ€™effectue pas cette action, il perd alors 20 honneur.  "
 			},
 			{
 				"Petit bar sympa",
 			"Vous pouvez payer 10 or. Si vous faites ainsi, mettez \
 			la carte du dessus du deck evenement en dessous de celui-ci. \
-			Passez ensuite votre prochaine phase d’actions principales \
-			(tout effet devant se déclencher lors de cette phase est alors ignoré). "
+			Passez ensuite votre prochaine phase dâ€™actions principales \
+			(tout effet devant se dÃ©clencher lors de cette phase est alors ignorÃ©). "
 			},
 			{
-				"Vallee mystérieuse",
-			"Lancez un dé 20. Entre 11 et 20, gagnez 4 or et 2 honneur."
+				"Vallee mysterieuse",
+			"Lancez un dÃ© 20. Entre 11 et 20, gagnez 4 or et 2 honneur."
 			},
 			{
 				"Jungle de Casanooba",
-			"Lancez un dé 20 et partez en expédition. \
-			Entre 1 et 10, vous faites une incroyable découverte ; \
+			"Lancez un dÃ© 20 et partez en expÃ©dition. \
+			Entre 1 et 10, vous faites une incroyable dÃ©couverte ; \
 			gagnez 10 or et 5 honneur. \
-			Entre 11 et 20 vous vous égarez, \
+			Entre 11 et 20 vous vous Ã©garez, \
 			et vous perdez votre action principale lors de la \
-			prochaine phase d’action principale"
+			prochaine phase dâ€™action principale"
 			},
 			{
 				"Fer des damnes",
-			"Vous pouvez cibler jusqu'à deux sujets du carrousel qui iront en prison sur ce lieu. \
+			"Vous pouvez cibler jusqu'Ã  deux sujets du carrousel qui iront en prison sur ce lieu. \
 			Ajoutez les au prochain carrousel (Ils prennent un espace de carrousel).  \
-			Ces sujets ne peuvent pas à nouveau être ciblés par ce même effet tant qu’ils sont en jeu."
+			Ces sujets ne peuvent pas Ã  nouveau Ãªtre ciblÃ©s par ce mÃªme effet tant quâ€™ils sont en jeu."
 			},
 			{
 				"Marche de Bagoudadi",
 			"Tirez un sujet du deck principal.  \
 			Vous pouvez le recruter pour son prix de base.  \
-			Si vous ne faites pas ainsi, mettez le dans la réserve. \
-			Vous pouvez à la place recruter les sujets vendus au marché noir \
+			Si vous ne faites pas ainsi, mettez le dans la rÃ©serve. \
+			Vous pouvez Ã  la place recruter les sujets vendus au marchÃ© noir \
 			pour leur prix de base"
 			},
 			{
@@ -79,10 +84,10 @@ game_state::game_state()
 			{
 				"Ecole du Flux",
 			"Vous pouvez payez 5 or. \
-			 Si vous faites ainsi, allez chercher l’un des sujets suivants dans \
-			 le deck principal ou la réserve et retirez le de la partie. \
+			 Si vous faites ainsi, allez chercher lâ€™un des sujets suivants dans \
+			 le deck principal ou la rÃ©serve et retirez le de la partie. \
 			 Ajoutez le au prochain carrousel. \
-			• Zucc  • Asdy • Juve • Emy • Dernière Inventeuse Lombyx"
+			â€¢ Zucc  â€¢ Asdy â€¢ Juve â€¢ Emy â€¢ DerniÃ¨re Inventeuse Lombyx"
 			},
 			{
 				"GSCorp",
@@ -91,36 +96,36 @@ game_state::game_state()
 			},
 			{
 				"Holoplanet",
-				"Vous pouvez payer 15 or.  Si vous faites ainsi, l’Holoplanet devient une copie du lieu ciblé. \
-				La copie possède en plus de ses propres capacités l’effet de l’Holoplanet."
+				"Vous pouvez payer 15 or.  Si vous faites ainsi, lâ€™Holoplanet devient une copie du lieu ciblÃ©. \
+				La copie possÃ¨de en plus de ses propres capacitÃ©s lâ€™effet de lâ€™Holoplanet."
 			},
 			{
 				"L'Auguste, Ville Baleine",
 				"Vous pouvez payer 5 or. \
-				Si vous faites ainsi, à la prochaine phase d’actions secondaires, \
-				posez l’une de vos actions en même temps que celles de vos adversaires et regardez l’action secondaire face cachée ciblée. \
+				Si vous faites ainsi, Ã  la prochaine phase dâ€™actions secondaires, \
+				posez lâ€™une de vos actions en mÃªme temps que celles de vos adversaires et regardez lâ€™action secondaire face cachÃ©e ciblÃ©e. \
 				Posez ensuite le reste de vos actions secondaires."
 			},
 			{
 				"Douane interplanetaire",
-				"Marquez le lieu ciblé. Lorsqu’un prétendant adverse effectue une action ‘Voyager’ sur le lieu marqué, gagnez 5 or. \
-				Si une marque est déjà en jeu, effacez la et marquez un autre lieu."
+				"Marquez le lieu ciblÃ©. Lorsquâ€™un prÃ©tendant adverse effectue une action â€˜Voyagerâ€™ sur le lieu marquÃ©, gagnez 5 or. \
+				Si une marque est dÃ©jÃ  en jeu, effacez la et marquez un autre lieu."
 			},
 			{
 				"Open Senat",
 				"Gagnez 3 honneur. \
-				Si vous avez 100 honneur,vous pouvez au lieu de cela défausser l'événement actif. \
-				Les récompenses d'événement ne sont pas attribuées. \
-				Allez chercher l'événement ‘Ordre 99’ dans le deck evenement ou la défausse et mettez le en jeu. \
-				Cet effet ne peut être activé qu’une fois par partie."
+				Si vous avez 100 honneur,vous pouvez au lieu de cela dÃ©fausser l'Ã©vÃ©nement actif. \
+				Les rÃ©compenses d'Ã©vÃ©nement ne sont pas attribuÃ©es. \
+				Allez chercher l'Ã©vÃ©nement â€˜Ordre 99â€™ dans le deck evenement ou la dÃ©fausse et mettez le en jeu. \
+				Cet effet ne peut Ãªtre activÃ© quâ€™une fois par partie."
 			},
 			{
 				"Hyper Cafe a chat",
-				"Si vous décidez de voyager sur l’Hyper Café, vous devez dire distinctement ‘Miaou’ exactement au moment de la révélation des actions principales pour pouvoir y aller. \
-				Si vous avez dit ‘Miaou’ vous ne pouvez plus voyager autre part que vers le Café. \
-				Votre prochain recrutement au carrousel ce tour ci coûte 10 or de moins \
+				"Si vous dÃ©cidez de voyager sur lâ€™Hyper CafÃ©, vous devez dire distinctement â€˜Miaouâ€™ exactement au moment de la rÃ©vÃ©lation des actions principales pour pouvoir y aller. \
+				Si vous avez dit â€˜Miaouâ€™ vous ne pouvez plus voyager autre part que vers le CafÃ©. \
+				Votre prochain recrutement au carrousel ce tour ci coÃ»te 10 or de moins \
 				(le prix ne peut descendre en dessous de 0). \
-				Si des prétendants voyagent vers l’Hyper Café à chats durant la même phase d’actions principales \
+				Si des prÃ©tendants voyagent vers lâ€™Hyper CafÃ© Ã  chats durant la mÃªme phase dâ€™actions principales \
 				ils perdent 20 honneur (vous ne pouvez descendre en dessous de 0)."
 			},
 			{
@@ -133,13 +138,13 @@ game_state::game_state()
 			},
 			{
 				"Marche noir de Bagoudadi",
-				"Vous pouvez vendre un sujet pour son prix de renforcement (Vous ne gagnez ainsi que de l’or). \
-				Si vous faites ainsi, mettez le sujet vendu sur le ‘Marché de Bagoudadi'."
+				"Vous pouvez vendre un sujet pour son prix de renforcement (Vous ne gagnez ainsi que de lâ€™or). \
+				Si vous faites ainsi, mettez le sujet vendu sur le â€˜MarchÃ© de Bagoudadi'."
 			},
 			{
 				"Arene de l honneur veritable",
-				"Le sujet de type officier ou mercenaire ciblé que vous contrôlez ne peut plus être utilisé en \
-				tant qu’action secondaire jusqu'à la prochaine phase d’actions principales. \
+				"Le sujet de type officier ou mercenaire ciblÃ© que vous contrÃ´lez ne peut plus Ãªtre utilisÃ© en \
+				tant quâ€™action secondaire jusqu'Ã  la prochaine phase dâ€™actions principales. \
 				Gagnez 5 honneur"
 			},
 			{
@@ -148,25 +153,145 @@ game_state::game_state()
 			},
 			{
 				"Nirva Nite Club",
-				"Lancez un dé 20 et appliquez l’un des effets suivants selon votre résultat: \
-				- Entre 1 et 5, envoyez l’un de vos sujets dans la réserve \
-				- Entre 6 et 10, vous passez simplement une bonne soirée, il ne se passe rien. \
-				- Entre 11 et 15, ajoutez un sujet de la réserve au hasard au prochain carrousel. \
-				- Entre 16 et 19, ajoutez un sujet de la défausse de votre choix au prochain carrousel. \
-				- Si vous faites 20, ajoutez immédiatement le Psytrance Pope à votre faction où qu’il se trouve dans la partie, \
-				et même hors du jeu, sans tenir compte du coût."
+				"Lancez un dÃ© 20 et appliquez lâ€™un des effets suivants selon votre rÃ©sultat: \
+				- Entre 1 et 5, envoyez lâ€™un de vos sujets dans la rÃ©serve \
+				- Entre 6 et 10, vous passez simplement une bonne soirÃ©e, il ne se passe rien. \
+				- Entre 11 et 15, ajoutez un sujet de la rÃ©serve au hasard au prochain carrousel. \
+				- Entre 16 et 19, ajoutez un sujet de la dÃ©fausse de votre choix au prochain carrousel. \
+				- Si vous faites 20, ajoutez immÃ©diatement le Psytrance Pope Ã  votre faction oÃ¹ quâ€™il se trouve dans la partie, \
+				et mÃªme hors du jeu, sans tenir compte du coÃ»t."
 			}
 		};
 		lieux.push_back(Lieu("Capitale", "Gagnez x or ou effectuez un coup d'Etat"));
 		lieux[0].changeState();
+
+
+		vector<Sujet> init_suj;
+		init_suj.push_back(Sujet("General Tarrok","Officier","","",1," ExclusiviteÌ sur un lieu jusquâ€™aÌ€ la prochaine phase dâ€™action secondaire.","Exclusivite sur 2 lieux jusquâ€™a la prochaine phase dâ€™action secondaires.","Exclusivite sur 3 lieux jusquâ€™aÌ€ la prochaine phase dâ€™action secondaires.",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Nuggi","Familier","","",1,"Gagnez 1 Or ","Gagnez 3 or ","Gagnez 5 or ou eÌchange Nuggi avec un sujet du carrousel",10,10,20,5,5,5,1));
+        init_suj.push_back(Sujet("Mister Cline","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Grizzle","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Mary Blaster","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Julien","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Ernst","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Ghul","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Zucc","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Le Disciple","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Le Peuple","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Le Detracteur","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("La Journaliste","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Le roi des mendiants","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Les fermiers de Joondra","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Balainiers des criques","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Fieffe escroc","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Galeo l homme de mains","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Giovanni le parrain","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("La soeur Champtra Gundra","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("La Kiora","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Par Ailleurs","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("V3KT0R le chuchoteur","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Miroslav le creuseur","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Victorion","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("B1P-B0P","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Station orbitale MV4","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Pere Noir","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Vive Plume","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Le mal aime","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("L'Ancien du vide","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Charon le passeur","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Hadis le bouffon","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Bob","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Asdy, chercheur a la cool","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Psytrance Pope","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Tabasse du crane","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Babuk, l'oeil veritable","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Alicia Victorieuse","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("L'ancien Captain Planet","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Tamon le beni","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Apicultrice du col","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Diable de Nassos","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Sourir d'argent","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Wubeh la tentacule tendue","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Le premier Oracle","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Celui qui sait attendre","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Grande Juge","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Kro, sculpteur de visage","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Juve, amelioratrice cerebrale","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Chasseuse emerite","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Tribue de cueilleurs","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Entrepreneur RSL","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Avaleur Glouton","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Turbo Guitar Hero Racer","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Pegi-3, apprenti Pegu","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Pegi-7, debutant pegu","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Pegi-18, Pegu confirme","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Pego-Â¨Pego, lieutenant Pegu","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Pega-Pega Pegu autoproclame","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Pegu-Pegu, maitre Pegu","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Le Corbeau","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Sruul noble pur sang","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Skruul sauvage au rabais","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Skruul virtuel en cavale","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Skruul ne des etoiles","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Terroriste multiversel","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("T1K-T4K, engeance du laboratoire MV4","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Veteran Spacemarin","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Petit dragon nebuleux","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Forme de vie gazeuse","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Jean-Marie Blaster","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Mecanicienne M.e.h.","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Veterinaire sang plus","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Cocci-girafe anonyme","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Emy, pourvoyeuse d informations","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Pace Yf, fils de la brume","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Quantum Kaiizah","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Ef, adversaire des cieux","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Alpha 0.2","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Derniere iventeuse lombyx","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Arrengeur de neurones","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Triple Quatre","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("L oeil de l infini","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Annihilatrice d impuretes","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Effigie de la beaute","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Helia pretresse reconvertie","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Caelifera Maxima, IIIeme du nom","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Artiste Totale","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Archange Pese Coeur","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Alexa escalated quicly","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("L Ami","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Sheol la clef de voute","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Un VRAI ami","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Rrrwarhf le hurleur","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("MissingNo","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Tabou aspect du mensonge","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Espoir Eternel","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Fierte des rois","","","",1," ","","",15,30,60,10,10,0,8));
+        init_suj.push_back(Sujet("Ultra B","","","",1," ","","",15,30,60,10,10,0,8));
+
+
+        srand(time(NULL));
+
+        int j = 0;
+        int rng;
+
+        while (j<100)
+        {
+            rng = rand()%101;
+            if (verifSujet(pioche_sujet,j,init_suj[rng].getnameSujet()))
+            {
+                pioche_sujet.push_back(init_suj[rng]);
+                j++;
+            }
+        }
+
+
+
 		int i = 0;
 		while (i < 23)
 		{
 			lieux.push_back(Lieu(init_lieux[i][0], init_lieux[i][1]));
 			i++;
 		}
-		srand(time(NULL));
-		int rng;
 		i = 1;
 		while (i < 10)
 		{
@@ -225,3 +350,12 @@ game_state::game_state()
     {
         return pretendants;
     }
+
+    string game_state::getnameSujetInPioche(int i)
+    {
+        int size = pioche_sujet.size();
+        if (i<size) return pioche_sujet[i].getnameSujet();
+        else return pioche_sujet[0].getnameSujet();
+    }
+
+

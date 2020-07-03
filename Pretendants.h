@@ -1,27 +1,27 @@
 #include "Sujets.h"
 #include "Lieux.h"
 #include <vector>
-using namespace std;
+
 
 class Pretendant
 {
    private:
-        string name;
+        std::string name;
 
         int nb_sujets;
-        vector<Sujet> sujets;
+        std::vector<Sujet> sujets;
 
         Lieu *location;
 
         int actif;
-        string actif_desc;
+        std::string actif_desc;
         int actif2;
-        string actif2_desc;
+        std::string actif2_desc;
 
         bool passif1;
         bool passif2;
-        string passif1_desc;
-        string passif2_desc;
+        std::string passif1_desc;
+        std::string passif2_desc;
 
         int argent;
         int honneur;
@@ -36,7 +36,7 @@ class Pretendant
 
         Sujet getSujet(int numero);//accesseur pour un sujet particulier
 
-        string getnamePret();//accesseur nom
+        std::string getnamePret();//accesseur nom
 
         void modifGold(int gain);//permet de modifier l'argent du pretendant au cours de la partie
 
@@ -44,7 +44,7 @@ class Pretendant
 
         void modifPE(int gain);//permetd de modifier les PE du pretendant au cours de la partie
 
-        void creerPret(string nom); //initialise le pretendanr au début de la partie
+        void creerPret(std::string nom); //initialise le pretendanr au début de la partie
 };
 
 
