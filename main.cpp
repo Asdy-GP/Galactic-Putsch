@@ -29,21 +29,9 @@ int main()
 
     cout<<endl;
 
-
-    for (int i=0; i<convert(gs.getNB_JOUEURS()); i++)
-    {
-        do
-        {
-            cout << "  Joueur "  << i+1 <<  ",  choisissez un nom valable et qui n'est pas deja selctionne parmi - Le Kahn, Prince Gorio, Kerval, Galar, Apolion, Clara Mars, Mere Syndra, M4RK, Mu, Val : ";
-            getline(cin,name);
-
-        }while((name != "Le Kahn" && name != "Prince Gorio" && name != "Kerval" && name != "Galar" && name != "Apolion" && name != "Clara Mars" && name != "Mere Syndra" && name != "M4RK" && name != "Mu" && name != "Val") || verifPret(gs.getVectPret(), i, name)==false);
-        gs.addPretendant(name);
-    }
-
     cout  <<  "  Les pretendants selectionnes sont les suivants : "  <<  endl;
 
-    for (int i=0;i<convert(gs.getNB_JOUEURS());i++)
+    for (int i=0 ; i<gs.getNB_JOUEURS() ; i++)
     {
         cout <<  gs.getPretendant(i).getnamePret() << ",  ";
     }
@@ -59,14 +47,15 @@ int main()
 
     cout<<endl;
     cout<<endl;
+
     cout<< "La pioche de sujets : " << endl;
-    for (int i=0; i<100;i++) cout<<gs.getnameSujetInPioche(i)<<endl;
+    for (int i=0;   i < 100-gs.getNB_JOUEURS() ;  i++) cout<<gs.getnameSujetInPioche(i)<<endl;
     cout<<endl;
 
 
-    for (int i = 0; i<convert(gs.getNB_JOUEURS()); i++) gs.getPretendant(i).printinfo();
+    for (int i = 0; i< gs.getNB_JOUEURS() ; i++) gs.getPretendant(i).printinfo();
 
-    for (int i = 0; i<convert(gs.getNB_JOUEURS()); i++) gs.getPretendant(i).~Pretendant();
+    for (int i = 0; i< gs.getNB_JOUEURS() ; i++) gs.getPretendant(i).~Pretendant();
 
 
 

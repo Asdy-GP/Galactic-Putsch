@@ -3,6 +3,16 @@
 
 using namespace std;
 
+bool unicSujet(Sujet s1, vector<Pretendant> pret, int nbj)
+{
+    for (int i=0; i < nbj; i++)
+    {
+        if (s1.getnameSujet() == pret[i].getSujet(0).getnameSujet()) return false;
+    }
+    return true;
+}
+
+
 bool verifSujet(vector<Sujet> suj, int size, string dejavu)
 {
     for (int i=0; i<size; i++)

@@ -9,7 +9,6 @@ using namespace std;
 game_state::game_state()
 	{
 
-		nb_joueurs = "0";
 		empereur = false;
 		emp_tours = 25;
 		string		init_lieux[23][2] = {
@@ -166,12 +165,32 @@ game_state::game_state()
 		lieux[0].changeState();
 
         /////////////////////////////Tout d'abord on init les pretendants////////////////////////////
+        string nb;
+
         do
         {
             cout << "  Indiquez le nombre de joueur (2 a 5) : ";
-            getline(cin, nb_joueurs);
+            getline(cin, nb);
             cout<<endl;
-        }while(nb_joueurs != "2" && nb_joueurs != "3" && nb_joueurs != "4" && nb_joueurs != "5" );
+        }while(nb != "2" && nb != "3" && nb != "4" && nb != "5" );
+
+        nb_joueurs = convert(nb);
+
+        string name;
+        Pretendant p=Pretendant();
+
+        for (int i=0; i<nb_joueurs; i++)
+        {
+            do
+            {
+                cout << "  Joueur "  << i+1 <<  ",  choisissez un nom valable et qui n'est pas deja selctionne parmi - Le Kahn, Prince Gorio, Kerval, Galar, Apolion, Clara Mars, Mere Syndra, M4RK, Mu, Val : ";
+                getline(cin,name);
+
+            }while((name != "Le Kahn" && name != "Prince Gorio" && name != "Kerval" && name != "Galar" && name != "Apolion" && name != "Clara Mars" && name != "Mere Syndra" && name != "M4RK" && name != "Mu" && name != "Val") || verifPret(pretendants, i, name)==false);
+
+            p.creerPret(name);
+            this->pretendants.push_back(p);
+        }
 
         /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -284,10 +303,10 @@ game_state::game_state()
         int j = 0;
         int rng;
 
-        while (j<100)
+        while (j<100-nb_joueurs)
         {
             rng = rand()%101;
-            if (verifSujet(pioche_sujet,j,init_suj[rng].getnameSujet()))
+            if (verifSujet(pioche_sujet,j,init_suj[rng].getnameSujet()) && unicSujet(init_suj[rng], pretendants, nb_joueurs) )
             {
                 pioche_sujet.push_back(init_suj[rng]);
                 j++;
@@ -328,20 +347,13 @@ game_state::game_state()
 		return (this->empereur);
 	}
 
-	void	game_state::addPretendant(string nom)
-	{
-		Pretendant p=Pretendant();
-		p.creerPret(nom);
-		this->pretendants.push_back(p);
-	}
-
 	Pretendant	game_state::getPretendant(int i)
 	{
-        if (i < convert(nb_joueurs))
+        if (i < nb_joueurs)
         {
             return (pretendants[i]);
         }
-		else return (pretendants[convert(nb_joueurs)]);
+		else return (pretendants[nb_joueurs]);
 	}
 
 	Lieu	game_state::getLieu(int nb_lieu)
@@ -350,7 +362,7 @@ game_state::game_state()
 		return lieux[0];
 	}
 
-	string game_state::getNB_JOUEURS()
+	int game_state::getNB_JOUEURS()
 	{
 	    return this -> nb_joueurs;
 	}
