@@ -32,4 +32,8 @@ class Sujet
         std::string getnameSujet();//accesseur nom
 
         std::string gettypeSujet(int i);//accesseur type
+
+        void modiflevel(int i);
+
+        int getlevelsujet();
 };

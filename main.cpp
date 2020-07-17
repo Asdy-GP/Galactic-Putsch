@@ -7,10 +7,8 @@ using namespace std;
 
 int main()
 {
-    string nb = "0";
     string choice = "";
     string name;
-    game_state gs = game_state();
 
 
     cout<<  "  Galactic Putsch"  <<endl;
@@ -27,31 +25,25 @@ int main()
 
     cout<<endl;
 
-    do
-    {
-        cout << "  Indiquez le nombre de joueur (2 a 5) : ";
-        getline(cin, nb);
-        cout<<endl;
-    }while(nb != "2" && nb != "3" && nb != "4" && nb != "5" );
+    game_state gs = game_state();
 
     cout<<endl;
 
 
-    for (int i=0; i<convert(nb); i++)
+    for (int i=0; i<convert(gs.getNB_JOUEURS()); i++)
     {
         do
         {
             cout << "  Joueur "  << i+1 <<  ",  choisissez un nom valable et qui n'est pas deja selctionne parmi - Le Kahn, Prince Gorio, Kerval, Galar, Apolion, Clara Mars, Mere Syndra, M4RK, Mu, Val : ";
             getline(cin,name);
 
-        }while((name != "Le Kahn" && name != "Prince Gorio" && name != "Kerval" && name != "Galar" && name != "Apolion" && name != "Clara Mars" && name != "Mere Syndra" && name != "M4RK" && name != "Mu" && name != "Val") || verifPret(gs.getVectPret(),gs.getNB_JOUEURS(),name)==false);
-
+        }while((name != "Le Kahn" && name != "Prince Gorio" && name != "Kerval" && name != "Galar" && name != "Apolion" && name != "Clara Mars" && name != "Mere Syndra" && name != "M4RK" && name != "Mu" && name != "Val") || verifPret(gs.getVectPret(), i, name)==false);
         gs.addPretendant(name);
     }
 
     cout  <<  "  Les pretendants selectionnes sont les suivants : "  <<  endl;
 
-    for (int i=0;i<gs.getNB_JOUEURS();i++)
+    for (int i=0;i<convert(gs.getNB_JOUEURS());i++)
     {
         cout <<  gs.getPretendant(i).getnamePret() << ",  ";
     }
@@ -71,7 +63,12 @@ int main()
     for (int i=0; i<100;i++) cout<<gs.getnameSujetInPioche(i)<<endl;
     cout<<endl;
 
-    for (int i = 0; i<gs.getNB_JOUEURS(); i++) gs.getPretendant(i).~Pretendant();
+
+    for (int i = 0; i<convert(gs.getNB_JOUEURS()); i++) gs.getPretendant(i).printinfo();
+
+    for (int i = 0; i<convert(gs.getNB_JOUEURS()); i++) gs.getPretendant(i).~Pretendant();
+
+
 
     return 0;
 }

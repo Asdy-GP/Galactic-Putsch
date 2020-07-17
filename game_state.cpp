@@ -9,7 +9,7 @@ using namespace std;
 game_state::game_state()
 	{
 
-		nb_joueurs = 0;
+		nb_joueurs = "0";
 		empereur = false;
 		emp_tours = 25;
 		string		init_lieux[23][2] = {
@@ -164,6 +164,16 @@ game_state::game_state()
 		};
 		lieux.push_back(Lieu("Capitale", "Gagnez x or ou effectuez un coup d'Etat"));
 		lieux[0].changeState();
+
+        /////////////////////////////Tout d'abord on init les pretendants////////////////////////////
+        do
+        {
+            cout << "  Indiquez le nombre de joueur (2 a 5) : ";
+            getline(cin, nb_joueurs);
+            cout<<endl;
+        }while(nb_joueurs != "2" && nb_joueurs != "3" && nb_joueurs != "4" && nb_joueurs != "5" );
+
+        /////////////////////////////////////////////////////////////////////////////////////////////
 
 
 		vector<Sujet> init_suj;
@@ -323,16 +333,15 @@ game_state::game_state()
 		Pretendant p=Pretendant();
 		p.creerPret(nom);
 		this->pretendants.push_back(p);
-		this->nb_joueurs=nb_joueurs+1;
 	}
 
 	Pretendant	game_state::getPretendant(int i)
 	{
-        if (i < nb_joueurs)
+        if (i < convert(nb_joueurs))
         {
             return (pretendants[i]);
         }
-		else return (pretendants[nb_joueurs]);
+		else return (pretendants[convert(nb_joueurs)]);
 	}
 
 	Lieu	game_state::getLieu(int nb_lieu)
@@ -341,7 +350,7 @@ game_state::game_state()
 		return lieux[0];
 	}
 
-	int game_state::getNB_JOUEURS()
+	string game_state::getNB_JOUEURS()
 	{
 	    return this -> nb_joueurs;
 	}
@@ -357,5 +366,3 @@ game_state::game_state()
         if (i<size) return pioche_sujet[i].getnameSujet();
         else return pioche_sujet[0].getnameSujet();
     }
-
-

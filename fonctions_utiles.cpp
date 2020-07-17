@@ -1,3 +1,4 @@
+#include <iostream>
 #include "fonctions_utiles.h"
 
 using namespace std;

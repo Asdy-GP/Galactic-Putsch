@@ -11,7 +11,7 @@ class game_state
 
 private:
 
-	int				nb_joueurs;
+	std::string				nb_joueurs;
 	bool			empereur;
 	int				emp_tours;
 	std::vector<Pretendant> pretendants;
@@ -34,7 +34,7 @@ public:
 
 	Lieu	getLieu(int nb_lieu);//accesseur lieu
 
-	int getNB_JOUEURS();//accesseur nombre de joueurs
+	std::string getNB_JOUEURS();//accesseur nombre de joueurs
 
     std::vector<Pretendant> getVectPret();//accesseur a la liste des pretendants
 

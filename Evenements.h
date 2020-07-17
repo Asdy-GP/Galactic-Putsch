@@ -3,6 +3,8 @@
 class Evenement
 {
 private:
+
+    std::string name;
     std::string lore;
     std::string effet;
     std::string quete1;
@@ -13,5 +15,5 @@ private:
     int tour;
 
 public:
-    Evenement(std::string l, std::string e, std::string q1, std::string q2, std::string q3, std::string qd);//Constructeur
+    Evenement(std::string nom, std::string l, std::string e, std::string q1, std::string q2, std::string q3, std::string qd);//Constructeur
 };

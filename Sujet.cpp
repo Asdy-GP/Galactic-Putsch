@@ -32,3 +32,14 @@ string Sujet::gettypeSujet(int i)
     if (i == 2) return type2;
     else return type3;
 }
+
+void Sujet::modiflevel(int i)
+{
+    level=i;
+    cout<<level<<endl;
+}
+
+int Sujet::getlevelsujet()
+{
+    return level;
+}
