@@ -13,6 +13,15 @@ bool unicSujet(Sujet s1, vector<Pretendant> pret, int nbj)
 }
 
 
+bool verifEvent(vector<Evenement> eve, int size, string dejavu)
+{
+    for (int i=0; i<size; i++)
+    {
+        if (dejavu==eve[i].getnameEvenement()) return false;
+    }
+    return true;
+}
+
 bool verifSujet(vector<Sujet> suj, int size, string dejavu)
 {
     for (int i=0; i<size; i++)

@@ -313,6 +313,42 @@ game_state::game_state()
             }
         }
 
+        vector<Evenement> init_eve;
+
+        init_eve.push_back(Evenement("Folie des encheres","","","","","",""));
+        init_eve.push_back(Evenement("Inversion de la 4eme dimension","","","","","",""));
+        init_eve.push_back(Evenement("Galactic Series of Poker (GSOP)","","","","","",""));
+        init_eve.push_back(Evenement("Big Warp","","","","","",""));
+        init_eve.push_back(Evenement("Infestation de sangsues Medioniennes","","","","","",""));
+        init_eve.push_back(Evenement("Collecte pour l’Orphelinat de la plenitude","","","","","",""));
+        init_eve.push_back(Evenement("Bal masque du compte Kessos","","","","","",""));
+        init_eve.push_back(Evenement("Complot convivial","","","","","",""));
+        init_eve.push_back(Evenement("Confusion des lois fondamentales","","","","","",""));
+        init_eve.push_back(Evenement("Prix Nobel de la paix universelle","","","","","",""));
+        init_eve.push_back(Evenement("Ghormagg, enfant des abysses","","","","","",""));
+        init_eve.push_back(Evenement("VIP Tea Party","","","","","",""));
+        init_eve.push_back(Evenement("Treve d’amitie interstellaire","","","","","",""));
+        init_eve.push_back(Evenement("Remise de prix Inter-systeme du FLX","","","","","",""));
+        init_eve.push_back(Evenement("Assaut du Mothership","","","","","",""));
+        init_eve.push_back(Evenement("Une lointaine menace…","","","","","",""));
+        init_eve.push_back(Evenement("Histoire d’un vieux","","","","","",""));
+        init_eve.push_back(Evenement("Pelerinage à la gloire des Créateurs","","","","","",""));
+        init_eve.push_back(Evenement("Crise economique","","","","","",""));
+        init_eve.push_back(Evenement("Scandales politiques","","","","","",""));
+        init_eve.push_back(Evenement("Ordre 99","","","","","",""));
+        init_eve.push_back(Evenement("Ondes magneto-cerebrales psychotropes","","","","","",""));
+
+
+        j=0;
+        while(j<22)
+        {
+            rng=rand()%23;
+            if (verifEvent(pioche_events,j,init_eve[rng].getnameEvenement()))
+            {
+                pioche_events.push_back(init_eve[rng]);
+                j++;
+            }
+        }
 
 
 		int i = 0;
@@ -335,6 +371,10 @@ game_state::game_state()
 
 	game_state::~game_state()
 	{
+	    for (int i = 0; i < nb_joueurs; i++) delete &pretendants[i];
+	    for (int j = 0; j < 23; j++) delete &lieux[j];
+	    for (int k = 0; k < 22; k++) delete &pioche_events[k];
+	    for (int l = 0; l < 100; l++) delete &pioche_sujet[l];
 	}
 
 	void	game_state::setEmpereur(bool new_emp)
@@ -377,4 +417,11 @@ game_state::game_state()
         int size = pioche_sujet.size();
         if (i<size) return pioche_sujet[i].getnameSujet();
         else return pioche_sujet[0].getnameSujet();
+    }
+
+        string game_state::getnameEvenementInPioche(int i)
+    {
+        int size = pioche_events.size();
+        if (i<size) return pioche_events[i].getnameEvenement();
+        else return pioche_events[0].getnameEvenement();
     }

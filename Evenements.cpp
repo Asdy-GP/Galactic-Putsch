@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Evenements.h"
 
 using namespace std;
@@ -12,4 +13,9 @@ Evenement::Evenement(string nom, string l,string e,string q1, string q2, string 
     quete3 = q3;
     qdesti = qd;
     tour = 0;
+}
+
+string Evenement::getnameEvenement()
+{
+    return name;
 }

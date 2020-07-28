@@ -28,6 +28,13 @@ int main()
     game_state gs = game_state();
 
     cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
 
     cout  <<  "  Les pretendants selectionnes sont les suivants : "  <<  endl;
 
@@ -36,7 +43,13 @@ int main()
         cout <<  gs.getPretendant(i).getnamePret() << ",  ";
     }
 
-
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
     cout << endl;
     cout  <<  "  Les lieux tires au sort sont les suivants : "  <<  endl;
 
@@ -47,15 +60,31 @@ int main()
 
     cout<<endl;
     cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+
+    cout  <<  "  Les events tires au sort sont les suivants : " << endl;
+    cout<<endl;
+    for (int k=0; k<22; k++) cout << gs.getnameEvenementInPioche(k)<<endl;
+
+    cout<<endl;
 
     cout<< "La pioche de sujets : " << endl;
     for (int i=0;   i < 100-gs.getNB_JOUEURS() ;  i++) cout<<gs.getnameSujetInPioche(i)<<endl;
     cout<<endl;
 
 
-    for (int i = 0; i< gs.getNB_JOUEURS() ; i++) gs.getPretendant(i).printinfo();
+    for (int i = 0; i< gs.getNB_JOUEURS() ; i++)
+    {
+        cout<<endl;
+        gs.getPretendant(i).printinfo();
+        cout<<endl;
+    }
 
-    for (int i = 0; i< gs.getNB_JOUEURS() ; i++) gs.getPretendant(i).~Pretendant();
+    gs.~game_state();
 
 
 

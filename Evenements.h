@@ -15,5 +15,9 @@ private:
     int tour;
 
 public:
+
     Evenement(std::string nom, std::string l, std::string e, std::string q1, std::string q2, std::string q3, std::string qd);//Constructeur
+
+    std::string getnameEvenement();
+
 };

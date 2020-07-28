@@ -3,7 +3,7 @@
 # include <stdlib.h>
 # include <time.h>
 #include "fonctions_utiles.h"
-#include "Evenements.h"
+
 
 
 class game_state
@@ -17,7 +17,7 @@ private:
 	std::vector<Pretendant> pretendants;
 	std::vector<Lieu>	lieux;
 	std::vector<Sujet>  pioche_sujet;
-
+	std::vector<Evenement> pioche_events;
 public:
 
 	game_state();//constructeur
@@ -37,5 +37,7 @@ public:
     std::vector<Pretendant> getVectPret();//accesseur a la liste des pretendants
 
     std::string getnameSujetInPioche(int i);
+
+    std::string getnameEvenementInPioche(int i);
 
 };
