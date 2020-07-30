@@ -11,7 +11,7 @@ class Pretendant
         int nb_sujets;
         std::vector<Sujet> sujets;
 
-        Lieu *location;
+        Lieu location = Lieu("Capitale","");
 
         int actif;
         std::string actif_desc;

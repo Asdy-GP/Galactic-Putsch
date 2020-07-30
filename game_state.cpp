@@ -8,7 +8,6 @@ using namespace std;
 
 game_state::game_state()
 	{
-
 		empereur = false;
 		emp_tours = 25;
 		string		init_lieux[23][2] = {
@@ -177,7 +176,10 @@ game_state::game_state()
         nb_joueurs = convert(nb);
 
         string name;
+
         Pretendant p=Pretendant();
+        for (int n=0;n<nb_joueurs;n++) pretendants.push_back(p);
+
 
         for (int i=0; i<nb_joueurs; i++)
         {
@@ -185,17 +187,15 @@ game_state::game_state()
             {
                 cout << "  Joueur "  << i+1 <<  ",  choisissez un nom valable et qui n'est pas deja selctionne parmi - Le Kahn, Prince Gorio, Kerval, Galar, Apolion, Clara Mars, Mere Syndra, M4RK, Mu, Val : ";
                 getline(cin,name);
-
             }while((name != "Le Kahn" && name != "Prince Gorio" && name != "Kerval" && name != "Galar" && name != "Apolion" && name != "Clara Mars" && name != "Mere Syndra" && name != "M4RK" && name != "Mu" && name != "Val") || verifPret(pretendants, i, name)==false);
-
             p.creerPret(name);
-            this->pretendants.push_back(p);
+            pretendants[i] = p;
         }
-
         /////////////////////////////////////////////////////////////////////////////////////////////
 
 
 		vector<Sujet> init_suj;
+
 		init_suj.push_back(Sujet("General Tarrok","Officier","","",1," Exclusivité sur un lieu jusqu’à la prochaine phase d’action secondaire.","Exclusivite sur 2 lieux jusqu’a la prochaine phase d’action secondaires.","Exclusivite sur 3 lieux jusqu’à la prochaine phase d’action secondaires.",15,30,60,10,10,0,8));
         init_suj.push_back(Sujet("Nuggi","Familier","","",1,"Gagnez 1 Or ","Gagnez 3 or ","Gagnez 5 or ou échange Nuggi avec un sujet du carrousel",10,10,20,5,5,5,1));
         init_suj.push_back(Sujet("Mister Cline","","","",1," ","","",15,30,60,10,10,0,8));
@@ -340,16 +340,19 @@ game_state::game_state()
 
 
         j=0;
+
+        srand(time(NULL));
+        pioche_events.assign(22,Evenement("","","","","","",""));
         while(j<22)
         {
             rng=rand()%23;
-            if (verifEvent(pioche_events,j,init_eve[rng].getnameEvenement()))
-            {
-                pioche_events.push_back(init_eve[rng]);
-                j++;
-            }
-        }
 
+            //if (verifEvent(pioche_events,22,init_eve[rng].getnameEvenement()))
+            //{
+                //pioche_events[j] = init_eve[rng];
+                j++;
+            //}
+        }
 
 		int i = 0;
 		while (i < 23)
@@ -357,7 +360,9 @@ game_state::game_state()
 			lieux.push_back(Lieu(init_lieux[i][0], init_lieux[i][1]));
 			i++;
 		}
+
 		i = 1;
+		srand(time(NULL));
 		while (i < 10)
 		{
 			rng = rand() % 24;
@@ -367,14 +372,16 @@ game_state::game_state()
 				i++;
 			}
 		}
+		init_suj.clear();
+		init_eve.clear();
 	}
 
 	game_state::~game_state()
 	{
-	    for (int i = 0; i < nb_joueurs; i++) delete &pretendants[i];
-	    for (int j = 0; j < 23; j++) delete &lieux[j];
-	    for (int k = 0; k < 22; k++) delete &pioche_events[k];
-	    for (int l = 0; l < 100; l++) delete &pioche_sujet[l];
+	    pretendants.clear();
+	    lieux.clear();
+	    pioche_events.clear();
+	    pioche_sujet.clear();
 	}
 
 	void	game_state::setEmpereur(bool new_emp)
@@ -391,9 +398,9 @@ game_state::game_state()
 	{
         if (i < nb_joueurs)
         {
-            return (pretendants[i]);
+            return pretendants[i];
         }
-		else return (pretendants[nb_joueurs]);
+		else return pretendants[nb_joueurs];
 	}
 
 	Lieu	game_state::getLieu(int nb_lieu)

@@ -52,6 +52,7 @@ int main()
     cout<<endl;
     cout << endl;
     cout  <<  "  Les lieux tires au sort sont les suivants : "  <<  endl;
+    cout<<endl;
 
     for (int j=0;j<24;j++)
     {
@@ -66,13 +67,21 @@ int main()
     cout<<endl;
     cout<<endl;
 
-    cout  <<  "  Les events tires au sort sont les suivants : " << endl;
+    cout  <<  "La pioche des events : " << endl;
     cout<<endl;
     for (int k=0; k<22; k++) cout << gs.getnameEvenementInPioche(k)<<endl;
 
     cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
 
     cout<< "La pioche de sujets : " << endl;
+    cout<<endl;
     for (int i=0;   i < 100-gs.getNB_JOUEURS() ;  i++) cout<<gs.getnameSujetInPioche(i)<<endl;
     cout<<endl;
 
@@ -84,7 +93,7 @@ int main()
         cout<<endl;
     }
 
-    gs.~game_state();
+    //gs.~game_state();
 
 
 

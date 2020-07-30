@@ -8,10 +8,10 @@ Pretendant::Pretendant()
     name = "Osef";
 
     nb_sujets = 1;
-    sujets.assign(nb_sujets,Sujet("Dummy","","","",0,"","","",0,0,0,0,0,0,0));
+    sujets.push_back(Sujet("Dummy","","","",0,"","","",0,0,0,0,0,0,0));
 
-    location = new Lieu("Capitale","Gagnez x or ou effectuez un coup d'Etat");
-    location->changeState();
+    location = Lieu("Capitale","Gagnez x or ou effectuez un coup d'Etat");
+    location.changeState();
 
     actif = 0;
     actif_desc = "";
@@ -30,7 +30,7 @@ Pretendant::Pretendant()
 
 Pretendant::~Pretendant()
 {
-    delete location;
+    sujets.clear();
 }
 
 void Pretendant::printinfo()
@@ -42,7 +42,7 @@ void Pretendant::printinfo()
     cout<<  "Passif 2:"  <<  passif2_desc  <<  endl;
     cout<<  "Sa faction comporte les sujets suivants: "  <<endl;
     for(int i=0; i<nb_sujets;i++) cout<<  sujets[i].getnameSujet()  <<endl;
-    cout<< name << " est actuellement sur "  <<  location->getnameLieu()  <<endl;
+    cout<< name << " est actuellement sur "  <<  location.getnameLieu()  <<endl;
 }
 
 
@@ -186,7 +186,7 @@ void Pretendant::creerPret(string nom)
         sujets[0] = Sujet("Le Disciple","Religieux","","",1,"","","",5,0,0,25,35,35,1);
         nb_sujets = 1;
         actif = 5;
-        actif_desc = " ‘Le Disciple’ monte d’un niveau (Ne tenez pas compte des restrictions de montée de niveau).";
+        actif_desc = " Le Disciple monte d’un niveau (Ne tenez pas compte des restrictions de montée de niveau).";
         passif1=true;
         passif1_desc = " A chaque début de tour, regardez les 5 premiers sujets du deck principal. Vous pouvez en choisir un et le mettre en dessous du deck ou à la place mettre le sujet du dessous du deck au dessus.";
         argent = 10;
